@@ -64,18 +64,19 @@ export const ListPost: FC = (): JSX.Element => {
             <p>{post.body}</p>
 
             <button
-              onClick={() => {
-                removeLikePost(post.id);
-              }}
-            >
-              TOGLI IL POST DAI PREFERITI
-            </button>
-            <button
+              style={{ marginRight: "10px" }}
               onClick={() => {
                 setLikePost(post.id);
               }}
             >
-              AGGIUNGI IL POST AI PREFERITI
+              LIKE POST
+            </button>
+            <button
+              onClick={() => {
+                removeLikePost(post.id);
+              }}
+            >
+              UNLIKE POST
             </button>
           </div>
           <CommentsContainer postId={post.id} />

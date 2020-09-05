@@ -49,8 +49,15 @@ export function Comment({ comment }: any) {
       <small style={{ display: "block" }}>Name: {comment.name}</small>
       <small>Email: {comment.email}</small>
       <p>{comment.body}</p>
-      <button onClick={() => setLikeComment(comment.id)}>ADD LIKE</button>
-      <button onClick={() => removeLikeComment(comment.id)}>REMOVE LIKE</button>
+      <button
+        style={{ marginRight: "10px" }}
+        onClick={() => setLikeComment(comment.id)}
+      >
+        LIKE COMMENT
+      </button>
+      <button onClick={() => removeLikeComment(comment.id)}>
+        UNLIKE COMMENT
+      </button>
     </div>
   );
 }
