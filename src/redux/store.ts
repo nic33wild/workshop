@@ -8,8 +8,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { takeLatest } from "redux-saga/effects";
 import {
   FETCH_POSTS_LIST_REQUEST,
-  FETCH_COMMENTS_LIST_SUCCESS,
-  FETCH_COMMENTS_LIST_REQUEST,
+  FETCH_COMMENTS_LIST_REQUEST
 } from "./actions";
 import { sagaPostList } from "./sagas";
 import { sagaCommentList } from "./sagas/sagaCommentList";
@@ -17,25 +16,25 @@ import { sagaCommentList } from "./sagas/sagaCommentList";
 const initialState = {
   posts: {
     list: [],
-    likedIds: [],
+    likedIds: []
   },
   selectedPost: {
     id: 0,
     comments: {
       list: [],
-      likedIds: [],
-    },
+      likedIds: []
+    }
   },
   isFetching: {
     posts: false,
-    comments: false,
-  },
+    comments: false
+  }
 };
 
 const rootReducer = combineReducers({
   posts: reducerPosts,
   selectedPost: reducerSelectedPost,
-  isFetching: reducerIsFetching,
+  isFetching: reducerIsFetching
 });
 
 function* rootSaga() {

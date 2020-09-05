@@ -31,6 +31,7 @@ export const ListPost: FC = (): JSX.Element => {
     dispatch({ type: ACTION_SET_LIKE_POST, payload: id });
   };
 
+  //Sostituita dalla funzione setLikePost alla riga precedente
   // useEffect(() => {
   //   dispatch({ type: ACTION_SET_LIKE_POST, payload: selectedPostId });
   // }, [selectedPostId]);
@@ -55,22 +56,22 @@ export const ListPost: FC = (): JSX.Element => {
               margin: "10px auto",
               width: "500px"
             }}
-            onClick={() => getComments(post.id)}
+            onClick={() => {
+              getComments(post.id);
+            }}
           >
             <h2>{post.title}</h2>
             <p>{post.body}</p>
 
             <button
-              onClick={e => {
-                e.preventDefault();
+              onClick={() => {
                 removeLikePost(post.id);
               }}
             >
               TOGLI IL POST DAI PREFERITI
             </button>
             <button
-              onClick={e => {
-                e.preventDefault();
+              onClick={() => {
                 setLikePost(post.id);
               }}
             >
