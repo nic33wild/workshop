@@ -1,2 +1,3 @@
 # workshop
-React and React Native workshop
+
+React, Redux-Saga workshop with BitRocket.Dev
