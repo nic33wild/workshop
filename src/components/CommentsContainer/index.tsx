@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectorComments, selectorLikeCommentId } from "../../redux/selectors";
 import {
   ACTION_SET_LIKE_COMMENT,
-  ACTION_UNSET_LIKE_COMMENT
+  ACTION_UNSET_LIKE_COMMENT,
 } from "../../redux/actions";
 
 export const CommentsContainer = ({ postId }: any) => {
@@ -13,29 +13,47 @@ export const CommentsContainer = ({ postId }: any) => {
 
 export const UICommentsList = ({
   comments,
-  postId
+  postId,
 }: {
   comments: any;
   postId: number;
 }) => (
   <>
     {comments.map((comment: any) =>
-      comment.postId === postId ? <Comment comment={comment} /> : null
+      comment.postId === postId ? <CommentContainer comment={comment} /> : null
     )}
   </>
 );
 
-export function Comment({ comment }: any) {
+export const CommentContainer = ({ comment }: any) => {
   const dispatch = useDispatch();
+
   const commentsLiked = useSelector(selectorLikeCommentId);
-  const setLikeComment = (id: number) => {
-    dispatch({ type: ACTION_SET_LIKE_COMMENT, payload: id });
+
+  const setLikeComment = () => {
+    dispatch({ type: ACTION_SET_LIKE_COMMENT, payload: comment.id });
   };
 
-  const removeLikeComment = (id: number) => {
-    dispatch({ type: ACTION_UNSET_LIKE_COMMENT, payload: id });
+  const removeLikeComment = () => {
+    dispatch({ type: ACTION_UNSET_LIKE_COMMENT, payload: comment.id });
   };
 
+  return (
+    <UIComment
+      comment={comment}
+      setLikeComment={setLikeComment}
+      removeLikeComment={removeLikeComment}
+      isLiked={commentsLiked.includes(comment.id)}
+    />
+  );
+};
+
+export function UIComment({
+  comment,
+  setLikeComment,
+  removeLikeComment,
+  isLiked,
+}: any) {
   return (
     <div
       style={{
@@ -43,21 +61,16 @@ export function Comment({ comment }: any) {
         margin: "10px auto",
         padding: "10px",
         border: "solid 1px blue",
-        background: commentsLiked.includes(comment.id) ? "orange" : "none"
+        background: isLiked ? "orange" : "none",
       }}
     >
       <small style={{ display: "block" }}>Name: {comment.name}</small>
       <small>Email: {comment.email}</small>
       <p>{comment.body}</p>
-      <button
-        style={{ marginRight: "10px" }}
-        onClick={() => setLikeComment(comment.id)}
-      >
+      <button style={{ marginRight: "10px" }} onClick={setLikeComment}>
         LIKE COMMENT
       </button>
-      <button onClick={() => removeLikeComment(comment.id)}>
-        UNLIKE COMMENT
-      </button>
+      <button onClick={removeLikeComment}>UNLIKE COMMENT</button>
     </div>
   );
 }

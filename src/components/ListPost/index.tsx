@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectorPosts,
   selectorSelectedPostId,
-  selectorLikePostId
+  selectorLikePostId,
 } from "../../redux/selectors";
 import {
   FETCH_POSTS_LIST_REQUEST,
   FETCH_COMMENTS_LIST_REQUEST,
   ACTION_SET_LIKE_POST,
-  ACTION_UNSET_LIKE_POST
+  ACTION_UNSET_LIKE_POST,
 } from "../../redux/actions";
 import { CommentsContainer } from "../CommentsContainer";
 
@@ -38,9 +38,9 @@ export const ListPost: FC = (): JSX.Element => {
 
   useEffect(() => {
     dispatch({
-      type: FETCH_POSTS_LIST_REQUEST
+      type: FETCH_POSTS_LIST_REQUEST,
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -54,7 +54,7 @@ export const ListPost: FC = (): JSX.Element => {
                 : "none",
               padding: "10px",
               margin: "10px auto",
-              width: "500px"
+              width: "500px",
             }}
             onClick={() => {
               getComments(post.id);
@@ -65,7 +65,8 @@ export const ListPost: FC = (): JSX.Element => {
 
             <button
               style={{ marginRight: "10px" }}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 setLikePost(post.id);
               }}
             >
